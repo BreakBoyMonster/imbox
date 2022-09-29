@@ -289,6 +289,9 @@ def parse_email(raw_email, policy=None):
     if parsed_email.get('date'):
         parsed_email['parsed_date'] = email.utils.parsedate_to_datetime(parsed_email['date'])
 
+    if parsed_email.get('subject'):
+        parsed_email['subject'] = parsed_email['subject'].encode('utf-8')
+
     logger.info("Downloaded and parsed mail '{}' with {} attachments".format(
         parsed_email.get('subject'), len(parsed_email.get('attachments'))))
     return Struct(**parsed_email)
